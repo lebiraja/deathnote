@@ -9,7 +9,7 @@ import logging
 
 from app.ml.model_manager import get_model_manager
 from app.core.exceptions import PredictionException, DataProcessingException
-from app.models.prediction import (
+from app.schemas.prediction import (
     PredictionInput,
     PredictionResponse,
     PredictionProfile,
@@ -69,8 +69,15 @@ class MLService:
             # Load preprocessor
             preprocessor = self.model_manager.load_preprocessor()
             
+            # Get the correct feature order from preprocessor
+            if '_feature_names' in preprocessor:
+                feature_names = preprocessor['_feature_names']
+                df = df[feature_names]
+            
             # Encode categorical features
             for col, le in preprocessor.items():
+                if col.startswith('_'):
+                    continue
                 if col in df.columns:
                     try:
                         df[col] = le.transform(df[col])

@@ -30,6 +30,13 @@ WORKDIR /app
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    gfortran \
+    build-essential \
+    pkg-config \
+    libopenblas-dev \
+    liblapack-dev \
     curl \
     && rm -rf /var/lib/apt/lists/*
 

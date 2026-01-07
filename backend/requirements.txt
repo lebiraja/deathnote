@@ -7,7 +7,7 @@ pydantic-settings>=2.6.0,<3.0.0
 # Machine Learning
 scikit-learn>=1.5.0,<2.0.0
 pandas>=2.2.0,<3.0.0
-numpy>=2.0.0,<3.0.0
+numpy>=2.0.0,<2.2.0
 joblib>=1.4.0,<2.0.0
 
 # Data Visualization (for training/EDA)
@@ -26,8 +26,6 @@ passlib[bcrypt]>=1.7.4,<2.0.0
 # Rate Limiting
 slowapi>=0.1.9,<0.2.0
 
-# CORS
-python-cors>=1.0.0,<2.0.0
 
 # Environment Management
 python-dotenv>=1.0.0,<2.0.0
