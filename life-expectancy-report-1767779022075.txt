@@ -1,0 +1,93 @@
+
+================================================================================
+                    LIFE EXPECTANCY PREDICTION REPORT
+================================================================================
+
+Generated: 2026-01-07 09:43:42
+
+--------------------------------------------------------------------------------
+PREDICTION SUMMARY
+--------------------------------------------------------------------------------
+
+Predicted Life Expectancy: 76.0 years
+
+
+--------------------------------------------------------------------------------
+PERSONAL INFORMATION
+--------------------------------------------------------------------------------
+
+Gender:               Male
+Height:               170 cm
+Weight:               70 kg
+BMI:                  24.2
+
+
+--------------------------------------------------------------------------------
+LIFESTYLE FACTORS
+--------------------------------------------------------------------------------
+
+Physical Activity:    Medium
+Smoking Status:       Current
+Alcohol Consumption:  Moderate
+Diet:                 Average
+
+
+--------------------------------------------------------------------------------
+HEALTH INDICATORS
+--------------------------------------------------------------------------------
+
+Blood Pressure:       Normal
+Cholesterol:          251 mg/dL
+
+Medical Conditions:
+  - Diabetes:         Yes
+  - Hypertension:     No
+  - Heart Disease:    No
+  - Asthma:           No
+
+
+--------------------------------------------------------------------------------
+HEALTH INSIGHTS
+--------------------------------------------------------------------------------
+
+1. Your BMI is in the healthy range, which is excellent for longevity.
+
+2. Smoking significantly reduces life expectancy. Quitting is the single best health decision.
+
+3. High cholesterol increases cardiovascular risk. Consider dietary changes and medication if needed.
+
+4. Managing your diabetes is crucial for optimal health outcomes.
+
+
+--------------------------------------------------------------------------------
+RECOMMENDATIONS
+--------------------------------------------------------------------------------
+
+1. Enhance Exercise Routine: Consider adding strength training exercises twice a week to complement your aerobic activities.
+
+2. Smoking Cessation Program: Quitting smoking is crucial. Consider nicotine replacement therapy, counseling, or prescription medications to help you quit.
+
+3. Dietary Enhancement: Focus on increasing vegetable and fruit intake while reducing processed foods and added sugars.
+
+4. Cholesterol Management: Work with your doctor to manage cholesterol through diet, exercise, and potentially medication. Reduce saturated fats and increase fiber intake.
+
+5. Diabetes Management: Maintain stable blood sugar through diet, exercise, and medication adherence. Regular monitoring and doctor visits are essential.
+
+6. Regular Health Screenings: Schedule regular checkups and age-appropriate screenings for cancer, heart disease, and other conditions.
+
+7. Stress Management: Practice stress-reduction techniques such as meditation, yoga, or deep breathing exercises to improve overall well-being.
+
+
+================================================================================
+DISCLAIMER
+================================================================================
+
+This prediction is for informational purposes only and should not be considered
+as medical advice. Please consult with healthcare professionals for personalized
+medical guidance and health assessments.
+
+The prediction is based on statistical models and general health factors. 
+Individual circumstances, genetics, environmental factors, and access to 
+healthcare can significantly impact actual life expectancy.
+
+================================================================================

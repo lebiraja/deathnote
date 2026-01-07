@@ -1,12 +1,9 @@
-"""
-Prediction endpoints.
-"""
 from fastapi import APIRouter, HTTPException, status, Depends, Request
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 import logging
 
-from app.models.prediction import PredictionInput, PredictionResponse
+from app.schemas.prediction import PredictionInput, PredictionResponse
 from app.services import get_ml_service
 from app.services.ml_service import MLService
 from app.core.exceptions import PredictionException, DataProcessingException
