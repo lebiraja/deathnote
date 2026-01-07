@@ -1,0 +1,51 @@
+# FastAPI and Web Framework
+fastapi>=0.115.0,<0.116.0
+uvicorn[standard]>=0.32.0,<0.33.0
+pydantic>=2.10.0,<3.0.0
+pydantic-settings>=2.6.0,<3.0.0
+
+# Machine Learning
+scikit-learn>=1.5.0,<2.0.0
+pandas>=2.2.0,<3.0.0
+numpy>=2.0.0,<3.0.0
+joblib>=1.4.0,<2.0.0
+
+# Data Visualization (for training/EDA)
+matplotlib>=3.9.0,<4.0.0
+seaborn>=0.13.0,<0.14.0
+
+# Caching
+redis>=5.2.0,<6.0.0
+hiredis>=3.0.0,<4.0.0
+
+# Security and Validation
+python-multipart>=0.0.17,<0.1.0
+python-jose[cryptography]>=3.3.0,<4.0.0
+passlib[bcrypt]>=1.7.4,<2.0.0
+
+# Rate Limiting
+slowapi>=0.1.9,<0.2.0
+
+# CORS
+python-cors>=1.0.0,<2.0.0
+
+# Environment Management
+python-dotenv>=1.0.0,<2.0.0
+
+# Monitoring and Metrics
+prometheus-client>=0.21.0,<0.22.0
+psutil>=6.0.0,<7.0.0
+
+# HTTP Client (for testing)
+httpx>=0.28.0,<0.29.0
+
+# PDF Generation (optional)
+reportlab>=4.2.0,<5.0.0
+
+# Database (optional - for future use)
+sqlalchemy>=2.0.0,<3.0.0
+alembic>=1.14.0,<2.0.0
+asyncpg>=0.30.0,<0.31.0
+
+# Logging
+python-json-logger>=3.2.0,<4.0.0
