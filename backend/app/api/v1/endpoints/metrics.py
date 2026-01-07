@@ -6,7 +6,7 @@ from datetime import datetime
 import psutil
 import logging
 
-from app.models.metrics import SystemMetrics, ModelMetrics
+from app.schemas.metrics import SystemMetrics, ModelMetrics
 from app.ml.model_manager import get_model_manager
 from app.core.config import get_settings
 

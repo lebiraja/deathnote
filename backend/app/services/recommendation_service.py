@@ -4,7 +4,7 @@ Recommendation service for generating health recommendations.
 from typing import List
 import logging
 
-from app.models.prediction import (
+from app.schemas.prediction import (
     PredictionInput,
     HealthRecommendation
 )

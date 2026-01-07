@@ -6,7 +6,7 @@ from datetime import datetime
 import psutil
 import logging
 
-from app.models.health import HealthCheck, DetailedHealthCheck, ServiceStatus
+from app.schemas.health import HealthCheck, DetailedHealthCheck, ServiceStatus
 from app.ml.model_manager import get_model_manager
 from app.core.config import get_settings
 
