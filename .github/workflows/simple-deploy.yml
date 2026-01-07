@@ -1,0 +1,53 @@
+name: Simple Deploy
+
+on:
+  push:
+    branches: 
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            
+            cd /opt/life-expectancy-app
+            
+            echo "Pulling latest code..."
+            git pull origin main
+            
+            echo "Downloading models from S3..."
+            aws s3 sync s3://life-expectancy-models/ backend/models/
+            
+            echo "Stopping containers..."
+            docker-compose -f docker-compose.prod.yml down
+            
+            echo "Building images..."
+            docker-compose -f docker-compose.prod.yml build
+            
+            echo "Starting services..."
+            docker-compose -f docker-compose.prod.yml up -d
+            
+            echo "Waiting for services..."
+            sleep 10
+            
+            echo "Container status:"
+            docker-compose -f docker-compose.prod.yml ps
+            
+            echo "Health check:"
+            curl -f http://localhost:8000/api/v1/health
+            
+            echo "Deployment complete!"

@@ -1,0 +1,12 @@
+# Git LFS tracking for large files
+# Track model files
+*.pkl filter=lfs diff=lfs merge=lfs -text
+backend/models/*.pkl filter=lfs diff=lfs merge=lfs -text
+# Track data files (optional - recommend using S3 instead)
+# *.csv filter=lfs diff=lfs merge=lfs -text
+# *.parquet filter=lfs diff=lfs merge=lfs -text
+# Track other large files if needed
+# *.zip filter=lfs diff=lfs merge=lfs -text
+# *.tar.gz filter=lfs diff=lfs merge=lfs -text
+backend/models/* filter=lfs diff=lfs merge=lfs -text
+things/* filter=lfs diff=lfs merge=lfs -text
