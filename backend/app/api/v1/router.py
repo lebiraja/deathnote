@@ -6,7 +6,8 @@ from fastapi import APIRouter
 from app.api.v1.endpoints import (
     prediction_router,
     health_router,
-    metrics_router
+    metrics_router,
+    report_router
 )
 
 api_router = APIRouter()
@@ -27,4 +28,9 @@ api_router.include_router(
     metrics_router,
     prefix="/metrics",
     tags=["Metrics"]
+)
+
+api_router.include_router(
+    report_router,
+    tags=["Reports"]
 )

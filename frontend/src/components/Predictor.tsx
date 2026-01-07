@@ -153,13 +153,13 @@ const Predictor = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `life-expectancy-report-${Date.now()}.pdf`);
+      link.setAttribute('download', `life-expectancy-report-${Date.now()}.txt`);
       document.body.appendChild(link);
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      alert('Error generating PDF: ' + (error as Error).message);
+      alert('Error generating report: ' + (error as Error).message);
     } finally {
       setLoading(false);
     }
