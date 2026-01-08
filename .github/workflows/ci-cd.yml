@@ -2,11 +2,9 @@ name: Production CI/CD
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
-
-env:
-  APP_DIR: ~/deathnote
 
 jobs:
   deploy:
@@ -14,54 +12,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup SSH
+        shell: bash
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          set -euo pipefail
 
-      - name: Deploy application
+          mkdir -p ~/.ssh
+
+          echo "Writing private key safely..."
+          cat << 'EOF' > ~/.ssh/id_rsa
+${{ secrets.EC2_SSH_KEY }}
+EOF
+
+          chmod 600 ~/.ssh/id_rsa
+
+          echo "Resolving EC2 host..."
+          getent hosts "${{ secrets.EC2_HOST }}"
+
+          echo "Adding host to known_hosts..."
+          ssh-keyscan -T 15 "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
+
+          echo "SSH setup completed successfully"
+
+      - name: Deploy to EC2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh ${EC2_USERNAME}@${EC2_HOST} << 'EOF'
             set -e
 
-            echo "🚀 Deploying DeathNote..."
+            echo "🚀 Starting deployment on EC2"
 
             cd ~/deathnote
 
-            echo "📥 Pull latest code"
             git pull origin main
 
-            echo "🛑 Stop containers"
             docker-compose down
-
-            echo "🔨 Build containers"
             docker-compose build --no-cache
-
-            echo "▶ Start containers"
             docker-compose up -d
 
-            echo "⏳ Waiting for backend"
-            for i in {1..10}; do
-              if curl -fs http://localhost:8000/api/v1/health > /dev/null; then
-                echo "✅ Backend healthy"
-                break
-              fi
-              sleep 5
-            done
-
-            echo "📊 Container status"
-            docker-compose ps
-
-            echo "🧹 Cleanup images"
-            docker image prune -f
-
-            echo "🎉 Deployment complete"
+            echo "✅ Deployment complete"
           EOF
-
-      - name: Cleanup SSH
-        run: rm -f ~/.ssh/id_rsa
