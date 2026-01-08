@@ -18,37 +18,29 @@ jobs:
       - name: Setup SSH
         shell: bash
         run: |
-          set -euo pipefail
+          set -e
 
           mkdir -p ~/.ssh
 
-          echo "Writing private key safely..."
-          cat << 'EOF' > ~/.ssh/id_rsa
-${{ secrets.EC2_SSH_KEY }}
-EOF
-
+          echo "Writing SSH key..."
+          printf "%s\n" "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-          echo "Resolving EC2 host..."
-          getent hosts "${{ secrets.EC2_HOST }}"
+          echo "Adding EC2 host to known_hosts..."
+          ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
 
-          echo "Adding host to known_hosts..."
-          ssh-keyscan -T 15 "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
-
-          echo "SSH setup completed successfully"
+          echo "SSH setup complete"
 
       - name: Deploy to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
         run: |
-          ssh ${EC2_USERNAME}@${EC2_HOST} << 'EOF'
+          ssh -o StrictHostKeyChecking=yes ${EC2_USERNAME}@${EC2_HOST} << 'EOF'
             set -e
-
-            echo "🚀 Starting deployment on EC2"
+            echo "🚀 Starting deployment"
 
             cd ~/deathnote
-
             git pull origin main
 
             docker-compose down
