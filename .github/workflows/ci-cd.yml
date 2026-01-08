@@ -1,236 +1,67 @@
-name: CI/CD Pipeline
+name: Production CI/CD
 
 on:
   push:
-    branches:
-      - main
-      - develop
-  pull_request:
-    branches:
-      - main
-      - develop
+    branches: [main]
   workflow_dispatch:
 
 env:
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1
+  APP_DIR: ~/deathnote
 
 jobs:
-  # Job 1: Run Tests
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          lfs: true
-      
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pip'
-      
-      - name: Install backend dependencies
-        run: |
-          cd backend
-          pip install -r requirements.txt
-      
-      - name: Run backend linting
-        run: |
-          cd backend
-          pip install flake8 black
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
-          black --check . || true
-      
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-      
-      - name: Install frontend dependencies
-        run: |
-          cd frontend
-          npm ci
-      
-      - name: Run frontend linting
-        run: |
-          cd frontend
-          npm run lint || true
-      
-      - name: Build frontend
-        run: |
-          cd frontend
-          npm run build
-
-  # Job 2: Build Docker Images
-  build:
-    name: Build Docker Images
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          lfs: true
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      
-      - name: Build backend image
-        run: |
-          cd backend
-          docker build -t deathnote-backend:latest .
-      
-      - name: Build frontend image
-        run: |
-          cd frontend
-          docker build -t deathnote-frontend:latest .
-      
-      - name: Test Docker images
-        run: |
-          docker images | grep deathnote
-
-  # Job 3: Deploy to Production
   deploy:
-    name: Deploy to Production
+    name: Deploy to AWS EC2
     runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: production
-      url: https://deathnote.lebiraja.tech
-    
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
-      
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-      
-      - name: Deploy to EC2
-        env:
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-          EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+
+      - name: Deploy application
         run: |
-          ssh -i ~/.ssh/deploy_key ${EC2_USERNAME}@${EC2_HOST} << 'ENDSSH'
+          ssh ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
             set -e
-            
-            echo "🚀 Starting deployment..."
-            
-            # Navigate to app directory
+
+            echo "🚀 Deploying DeathNote..."
+
             cd ~/deathnote
-            
-            # Pull latest changes
-            echo "📥 Pulling latest code..."
+
+            echo "📥 Pull latest code"
             git pull origin main
-            
-            # Pull LFS files if configured
-            if command -v git-lfs &> /dev/null; then
-                echo "📦 Pulling LFS files..."
-                git lfs pull || echo "No LFS files to pull"
-            fi
-            
-            # Download from S3 if script exists
-            if [ -f "download-assets.sh" ]; then
-                echo "☁️ Downloading assets from S3..."
-                bash download-assets.sh
-            fi
-            
-            # Create backend .env if not exists
-            if [ ! -f "backend/.env" ]; then
-                echo "📝 Creating backend .env file..."
-                cat > backend/.env << EOF
-ENVIRONMENT=production
-LOG_LEVEL=INFO
-REDIS_URL=redis://redis:6379/0
-EOF
-            fi
-            
-            # Build images with no cache to ensure latest code
-            echo "🔨 Building Docker images..."
-            docker-compose build --no-cache
-            
-            # Stop old containers
-            echo "🛑 Stopping old containers..."
+
+            echo "🛑 Stop containers"
             docker-compose down
-            
-            # Start new containers
-            echo "✅ Starting new containers..."
+
+            echo "🔨 Build containers"
+            docker-compose build --no-cache
+
+            echo "▶ Start containers"
             docker-compose up -d
-            
-            # Wait for services
-            echo "⏳ Waiting for services to start..."
-            sleep 20
-            
-            # Health check
-            echo "🏥 Running health checks..."
-            
-            # Check backend
-            MAX_RETRIES=10
-            RETRY_COUNT=0
-            until curl -f http://localhost:8000/api/v1/health 2>/dev/null || [ $RETRY_COUNT -eq $MAX_RETRIES ]; do
-                echo "⏳ Waiting for backend... ($((RETRY_COUNT+1))/$MAX_RETRIES)"
-                sleep 5
-                RETRY_COUNT=$((RETRY_COUNT+1))
+
+            echo "⏳ Waiting for backend"
+            for i in {1..10}; do
+              if curl -fs http://localhost:8000/api/v1/health > /dev/null; then
+                echo "✅ Backend healthy"
+                break
+              fi
+              sleep 5
             done
-            
-            if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
-                echo "❌ Backend failed to start!"
-                docker-compose logs backend --tail=100
-                exit 1
-            else
-                echo "✅ Backend is healthy!"
-            fi
-            
-            # Check frontend
-            if curl -f http://localhost:80 2>/dev/null; then
-                echo "✅ Frontend is accessible!"
-            else
-                echo "⚠️ Frontend check failed"
-                docker-compose logs frontend --tail=50
-            fi
-            
-            # Restart cloudflared tunnel
-            echo "🌐 Restarting Cloudflare tunnel..."
-            sudo systemctl restart cloudflared
-            sudo systemctl status cloudflared --no-pager
-            
-            # Show container status
-            echo "📊 Container status:"
+
+            echo "📊 Container status"
             docker-compose ps
-            
-            # Clean up old images
-            echo "🧹 Cleaning up old Docker images..."
+
+            echo "🧹 Cleanup images"
             docker image prune -f
-            
-            echo "✨ Deployment complete!"
-          ENDSSH
-      
-      - name: Cleanup SSH key
-        if: always()
-        run: rm -f ~/.ssh/deploy_key
-      
-      - name: Send deployment notification
-        if: always()
-        run: |
-          if [ ${{ job.status }} == 'success' ]; then
-            echo "✅ Deployment to production succeeded!"
-            echo "🌐 Site: https://deathnote.lebiraja.tech"
-            echo "🔌 API: https://api-3.lebiraja.tech"
-          else
-            echo "❌ Deployment to production failed!"
-            exit 1
-          fi
+
+            echo "🎉 Deployment complete"
+          EOF
+
+      - name: Cleanup SSH
+        run: rm -f ~/.ssh/id_rsa
