@@ -1,57 +1,57 @@
 /* ======================
-   Liquid Glass Theme - Apple Inspired
+   Liquid Glass Theme - Dark Mode
    CSS Variables & Global Styles
    ====================== */
 
 :root {
-    /* Primary Glass Colors */
-    --glass-bg: rgba(255, 255, 255, 0.25);
-    --glass-bg-dark: rgba(255, 255, 255, 0.15);
-    --glass-bg-light: rgba(255, 255, 255, 0.4);
-    --glass-border: rgba(255, 255, 255, 0.3);
-    --glass-border-light: rgba(255, 255, 255, 0.5);
+    /* Primary Glass Colors - Dark Theme */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-bg-dark: rgba(255, 255, 255, 0.05);
+    --glass-bg-light: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-border-light: rgba(255, 255, 255, 0.18);
 
-    /* Accent Colors - Vibrant gradients */
-    --primary: #007AFF;
-    --primary-light: #5AC8FA;
-    --secondary: #AF52DE;
-    --accent-pink: #FF2D55;
-    --accent-orange: #FF9500;
-    --accent-teal: #5AC8FA;
+    /* Accent Colors - Subtle, refined */
+    --primary: #667eea;
+    --primary-light: #8b9cf4;
+    --secondary: #764ba2;
+    --accent-pink: #a855f7;
+    --accent-teal: #5eead4;
 
     /* Semantic Colors */
-    --success: #30D158;
-    --warning: #FF9F0A;
-    --danger: #FF453A;
-    --info: #64D2FF;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --info: #60a5fa;
 
-    /* Neutral Colors */
-    --dark: #1C1C1E;
-    --dark-elevated: #2C2C2E;
-    --light: rgba(255, 255, 255, 0.8);
-    --border: rgba(255, 255, 255, 0.2);
-    --text: #1C1C1E;
-    --text-secondary: rgba(60, 60, 67, 0.7);
-    --text-on-glass: rgba(0, 0, 0, 0.85);
+    /* Dark Theme Neutrals */
+    --dark: #0a0a0f;
+    --dark-elevated: #12121a;
+    --dark-surface: #1a1a24;
+    --light: rgba(255, 255, 255, 0.9);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: rgba(255, 255, 255, 0.95);
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --text-muted: rgba(255, 255, 255, 0.4);
 
     /* Glass Effects */
     --glass-blur: blur(40px);
     --glass-blur-light: blur(20px);
     --glass-blur-heavy: blur(60px);
-    --glass-saturate: saturate(180%);
+    --glass-saturate: saturate(150%);
 
-    /* Shadows - Depth layering */
+    /* Shadows - Depth layering for dark theme */
     --shadow-glass:
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     --shadow-glass-lg:
-        0 20px 60px rgba(0, 0, 0, 0.15),
-        0 8px 25px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     --shadow-glass-float:
-        0 25px 80px rgba(0, 0, 0, 0.2),
-        0 10px 30px rgba(0, 0, 0, 0.1);
-    --shadow-inner-glow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+        0 25px 80px rgba(0, 0, 0, 0.6),
+        0 10px 30px rgba(0, 0, 0, 0.4);
+    --shadow-inner-glow: inset 0 0 20px rgba(255, 255, 255, 0.03);
 
     /* Transitions - Motion reactive */
     --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -78,15 +78,14 @@ html {
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: var(--text);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    background-attachment: fixed;
+    background: var(--dark);
     min-height: 100vh;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Animated background gradient */
+/* Subtle ambient gradient overlay */
 body::before {
     content: '';
     position: fixed;
@@ -95,11 +94,11 @@ body::before {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(ellipse at 20% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 40% 60%, rgba(175, 82, 222, 0.2) 0%, transparent 40%);
+        radial-gradient(ellipse at 20% 0%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(118, 75, 162, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 80%);
     z-index: -1;
-    animation: ambientShift 20s ease-in-out infinite;
+    pointer-events: none;
 }
 
 .app {
@@ -122,7 +121,7 @@ body::before {
     background: var(--glass-bg-dark);
     backdrop-filter: var(--glass-blur) var(--glass-saturate);
     -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-glass);
 }
@@ -151,25 +150,6 @@ body::before {
 /* ======================
    Animations
    ====================== */
-
-@keyframes ambientShift {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-    }
-    25% {
-        opacity: 0.8;
-        transform: scale(1.05) rotate(1deg);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.02) rotate(-1deg);
-    }
-    75% {
-        opacity: 0.9;
-        transform: scale(1.03) rotate(0.5deg);
-    }
-}
 
 @keyframes slideDown {
     from {
@@ -251,15 +231,15 @@ body::before {
     }
     25% {
         transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
-        box-shadow: 0 35px 100px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 35px 100px rgba(0, 0, 0, 0.5);
     }
     50% {
         transform: translateY(-15px) rotateX(0deg) rotateY(0deg);
-        box-shadow: 0 40px 120px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
     }
     75% {
         transform: translateY(-8px) rotateX(-2deg) rotateY(2deg);
-        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
     }
 }
 
@@ -292,29 +272,35 @@ body::before {
 @keyframes pulseGlow {
     0%, 100% {
         box-shadow:
-            0 0 20px rgba(0, 122, 255, 0.3),
-            0 0 40px rgba(175, 82, 222, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            0 0 20px rgba(102, 126, 234, 0.2),
+            0 0 40px rgba(118, 75, 162, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
     50% {
         box-shadow:
-            0 0 30px rgba(0, 122, 255, 0.5),
-            0 0 60px rgba(175, 82, 222, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            0 0 30px rgba(102, 126, 234, 0.3),
+            0 0 60px rgba(118, 75, 162, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 }
 
 @keyframes orbFloat {
     0%, 100% {
         transform: translate(-50%, -50%) scale(1);
-        filter: blur(0px);
     }
     33% {
-        transform: translate(-45%, -55%) scale(1.05);
-        filter: blur(1px);
+        transform: translate(-45%, -55%) scale(1.03);
     }
     66% {
         transform: translate(-55%, -48%) scale(0.98);
-        filter: blur(0.5px);
+    }
+}
+
+@keyframes subtlePulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.8;
     }
 }

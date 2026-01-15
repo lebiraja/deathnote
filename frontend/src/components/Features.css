@@ -1,4 +1,4 @@
-/* Features Section - Liquid Glass Theme */
+/* Features Section - Dark Liquid Glass Theme */
 .features {
     padding: 100px 24px;
     max-width: 1200px;
@@ -9,10 +9,9 @@
     font-size: 44px;
     margin-bottom: 60px;
     text-align: center;
-    color: white;
+    color: var(--text);
     font-weight: 700;
     letter-spacing: -1px;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
 }
 
 .features-grid {
@@ -23,17 +22,17 @@
 
 .feature-card {
     padding: 40px 32px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
     border-radius: var(--radius-lg);
     text-align: center;
     transition: var(--transition-spring);
     animation: fadeUp 0.8s ease-out backwards;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
     position: relative;
     overflow: hidden;
 }
@@ -54,7 +53,7 @@
     height: 50%;
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.04),
         transparent
     );
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
@@ -63,11 +62,11 @@
 
 .feature-card:hover {
     transform: translateY(-12px) scale(1.02);
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.15),
-        0 10px 30px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        0 25px 60px rgba(0, 0, 0, 0.4),
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .feature-icon {
@@ -78,19 +77,19 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 4px 12px rgba(0, 122, 255, 0.3));
+    filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.25));
 }
 
 .feature-card h3 {
     font-size: 22px;
     margin-bottom: 14px;
-    color: white;
+    color: var(--text);
     font-weight: 600;
     letter-spacing: -0.3px;
 }
 
 .feature-card p {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     line-height: 1.7;
     font-size: 15px;
 }

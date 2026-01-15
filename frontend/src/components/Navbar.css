@@ -1,4 +1,4 @@
-/* Navbar - Liquid Glass Floating Bar */
+/* Navbar - Dark Liquid Glass Floating Bar */
 .navbar {
     position: fixed;
     top: 16px;
@@ -6,14 +6,14 @@
     transform: translateX(-50%);
     width: calc(100% - 32px);
     max-width: 1200px;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-xl);
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     z-index: 1000;
     animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -28,7 +28,7 @@
     height: 50%;
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.06),
         transparent
     );
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
@@ -63,7 +63,7 @@
 
 .logo:hover {
     transform: scale(1.05);
-    filter: brightness(1.1);
+    filter: brightness(1.2);
 }
 
 .logo i {
@@ -81,7 +81,7 @@
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-on-glass);
+    color: var(--text-secondary);
     font-weight: 500;
     font-size: 15px;
     transition: var(--transition);
@@ -93,7 +93,8 @@
 }
 
 .nav-links a:hover {
-    background: rgba(255, 255, 255, 0.3);
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
 }
 
