@@ -1,79 +1,146 @@
+/* Navbar - Liquid Glass Floating Bar */
 .navbar {
     position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow);
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-xl);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
     z-index: 1000;
-    animation: slideDown 0.5s ease-out;
+    animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Inner highlight for glass depth */
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    pointer-events: none;
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 60px;
+    position: relative;
 }
 
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 24px;
-    font-weight: bold;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent-pink) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     cursor: pointer;
     transition: var(--transition);
+    letter-spacing: -0.5px;
 }
 
 .logo:hover {
     transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 .logo i {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 8px;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text);
+    color: var(--text-on-glass);
     font-weight: 500;
+    font-size: 15px;
     transition: var(--transition);
     position: relative;
     cursor: pointer;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    background: transparent;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 0;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     transition: var(--transition);
+    border-radius: 2px;
 }
 
 .nav-links a:hover::after {
-    width: 100%;
+    width: calc(100% - 36px);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        top: 12px;
+        width: calc(100% - 24px);
+    }
+
+    .nav-container {
+        height: 56px;
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-links a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
     .nav-links {
         display: none;
+    }
+
+    .navbar {
+        border-radius: var(--radius-lg);
     }
 }
