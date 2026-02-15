@@ -207,3 +207,6 @@ This project is for educational purposes.
 ## Support
 
 For issues or questions, please check the code documentation or modify the modules as needed.
+
+
+CURRENTLY THE SERVICE IS DOWN!!!!!!!!!!!!!!
