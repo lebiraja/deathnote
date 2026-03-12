@@ -1,5 +1,7 @@
 # AWS Deployment Guide - Life Expectancy Prediction App
 
+
+
 > [!IMPORTANT]
 > This guide covers deploying your Life Expectancy Prediction application to AWS EC2 using Docker and SSH, with automated CI/CD via GitHub Actions.
 
