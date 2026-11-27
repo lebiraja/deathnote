@@ -1,49 +1,35 @@
-/* Global reset - Dark Liquid Glass Theme */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0c0b0a;
+  --color-coal: #171513;
+  --color-paper: #e9e0cc;
+  --color-shade: #d8ccb1;
+  --color-pen: #1b1712;
+  --color-faded: #5d5445;
+  --color-blood: #a3161a;
+  --color-moss: #2f5d3a;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-hand: 'Caveat', cursive;
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #0a0a0f;
+  @apply min-h-screen bg-ink font-sans text-paper antialiased;
+  background-image: radial-gradient(ellipse at 50% -10%, #2a2420 0%, transparent 60%);
 }
 
-#root {
-  width: 100%;
-  min-height: 100vh;
+/* A ruled notebook sheet with a red margin line. */
+.sheet {
+  @apply relative rounded-sm text-pen;
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(90deg, transparent 2.25rem, rgb(163 22 26 / 0.45) 2.25rem, rgb(163 22 26 / 0.45) calc(2.25rem + 1px), transparent calc(2.25rem + 1px)),
+    repeating-linear-gradient(transparent 0 31px, rgb(27 23 18 / 0.09) 31px 32px);
+  box-shadow: 0 30px 60px rgb(0 0 0 / 0.55), 6px 6px 0 var(--color-shade);
 }
 
-/* Selection styling */
-::selection {
-  background: rgba(102, 126, 234, 0.4);
-  color: inherit;
-}
-
-/* Scrollbar styling for dark theme */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 5px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 5px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+:focus-visible {
+  outline: 2px solid var(--color-blood);
+  outline-offset: 2px;
 }

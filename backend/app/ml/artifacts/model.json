@@ -1,0 +1,165 @@
+{
+  "version": "2.0.0",
+  "reference_population": "Effects estimated on US adults; baseline mortality at serving is Indian.",
+  "trained_on": "2026-11-27",
+  "source": "NHANES 2007-2018 with NCHS public-use linked mortality (follow-up to 2019-12-31)",
+  "intercept": {
+    "female": -6.335016029694526,
+    "male": -5.836143327315548
+  },
+  "gamma": {
+    "female": 0.08075399368041766,
+    "male": 0.06755979211583989
+  },
+  "coefficients": {
+    "sleep_0": -0.12129797566483203,
+    "sleep_1": -0.020245678844053448,
+    "sleep_2": 0.4448893622002916,
+    "sleep_3": -0.3509679462187319,
+    "bmi_under": 0.405,
+    "bmi_over": 0.0,
+    "bmi_obese": 0.09788411583396761,
+    "smoking_ever": 0.2967679368237775,
+    "smoking_current": 0.621406619645344,
+    "alcohol_any_history": 0.0,
+    "alcohol_former": 0.35851801574180814,
+    "alcohol_heavy": 0.30374055373346937,
+    "alcohol_unknown": 0.4217125675067211,
+    "diet_at_least_very_good": 0.0,
+    "diet_at_least_good": 0.08245283930559398,
+    "diet_at_least_fair": 0.0,
+    "diet_at_least_poor": 0.380510456268306,
+    "activity_none": 0.22310419055828448,
+    "activity_below_150": 0.21009799308828755,
+    "activity_below_300": 0.0,
+    "diabetes": 0.36089720963786337,
+    "hypertension": 0.19128277592939616,
+    "heart_disease": 0.4657341169394001,
+    "asthma": 0.12305440840441544,
+    "sbp_raised": 0.02506078894508912,
+    "sbp_high": 0.0789441604430311,
+    "cholesterol_raised": 0.0,
+    "cholesterol_high": 0.0
+  },
+  "score_limits": [
+    0.0177,
+    2.9505
+  ],
+  "flow": {
+    "participants": 59842,
+    "aged_20_79": 32388,
+    "mortality_eligible_examined": 31156,
+    "complete": 30423,
+    "deaths": 2042
+  },
+  "data_notes": {
+    "missing_share": {
+      "systolic_bp": 0.0388,
+      "total_cholesterol": 0.0584
+    },
+    "alcohol_unknown_share": 0.0938,
+    "sleep_measure": {
+      "mean_2007_2014": 6.861,
+      "mean_2015_2018": 7.61
+    }
+  },
+  "metrics": {
+    "cv_c_index": 0.8278,
+    "cv_c_index_folds": [
+      0.827,
+      0.8297,
+      0.8221,
+      0.8352,
+      0.8248
+    ],
+    "cv_c_index_age_sex": 0.7909,
+    "cv_c_index_unconstrained": 0.8288,
+    "holdout_cycle": 2017,
+    "holdout_c_index": 0.8221,
+    "holdout_deaths": 70,
+    "calibration_5y": [
+      {
+        "group": 1,
+        "predicted": 0.002,
+        "observed": 0.0033
+      },
+      {
+        "group": 2,
+        "predicted": 0.0061,
+        "observed": 0.0073
+      },
+      {
+        "group": 3,
+        "predicted": 0.0158,
+        "observed": 0.0165
+      },
+      {
+        "group": 4,
+        "predicted": 0.0405,
+        "observed": 0.0344
+      },
+      {
+        "group": 5,
+        "predicted": 0.1396,
+        "observed": 0.1212
+      }
+    ],
+    "calibration_10y_2007_2010": [
+      {
+        "group": 1,
+        "predicted": 0.0051,
+        "observed": 0.0059
+      },
+      {
+        "group": 2,
+        "predicted": 0.0156,
+        "observed": 0.0143
+      },
+      {
+        "group": 3,
+        "predicted": 0.039,
+        "observed": 0.0369
+      },
+      {
+        "group": 4,
+        "predicted": 0.0974,
+        "observed": 0.1032
+      },
+      {
+        "group": 5,
+        "predicted": 0.3025,
+        "observed": 0.3188
+      }
+    ]
+  },
+  "sensitivity_without_early_deaths": {
+    "sleep_0": -0.13286345306488304,
+    "sleep_1": 0.05616438356309387,
+    "sleep_2": 0.22079572604045844,
+    "sleep_3": -0.4017386589192104,
+    "bmi_under": 0.405,
+    "bmi_over": 0.0,
+    "bmi_obese": 0.10687236153277917,
+    "smoking_ever": 0.29069681187007296,
+    "smoking_current": 0.7516695385940212,
+    "alcohol_any_history": 0.0,
+    "alcohol_former": 0.3758828429228044,
+    "alcohol_heavy": 0.29785027283858057,
+    "alcohol_unknown": 0.5011847771540568,
+    "diet_at_least_very_good": 0.0,
+    "diet_at_least_good": 0.1189297463580707,
+    "diet_at_least_fair": 0.0,
+    "diet_at_least_poor": 0.3499922964979369,
+    "activity_none": 0.12895769423080503,
+    "activity_below_150": 0.19952715648985334,
+    "activity_below_300": 0.0,
+    "diabetes": 0.36440081004964087,
+    "hypertension": 0.1971533703813674,
+    "heart_disease": 0.36695382865552617,
+    "asthma": 0.08960528347541646,
+    "sbp_raised": 0.002908125632383431,
+    "sbp_high": 0.06335742694585961,
+    "cholesterol_raised": 0.0,
+    "cholesterol_high": 0.010132938938468606
+  }
+}
