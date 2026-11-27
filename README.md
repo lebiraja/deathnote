@@ -1,16 +1,24 @@
 # deathnote
 
-Life expectancy estimation from health and lifestyle inputs: a FastAPI backend and a React frontend.
+Estimates life expectancy from age, sleep, habits and health, against Indian death rates. A FastAPI backend, a React frontend and a survival model trained on NHANES with linked mortality.
 
-A rebuild is in progress: a survival model trained on NHANES data with linked mortality, and a new interface. The current model was trained on random data, so its output means nothing.
+An educational project. It is not medical advice. Read [the model card](docs/model-card.md) before trusting any number.
 
-## Run locally
+## Run
 
 ```bash
-cp backend/.env.example backend/.env
 docker compose up -d --build
 ```
 
-Frontend: http://localhost. API docs: http://localhost:8000/api/docs.
+App: http://localhost:8080. API docs: http://localhost:8047/api/docs. Change ports with `WEB_PORT` and `API_PORT`.
 
-This is an educational project and not medical advice.
+## Test and train
+
+```bash
+docker compose run --rm test                  # backend tests
+docker compose run --rm train                 # download NHANES, retrain, rewrite the artifact
+cd frontend && npm ci && npm test             # frontend unit tests
+cd frontend && npm run e2e                    # browser tests; needs the app running and Google Chrome
+```
+
+Documentation: [docs/](docs/README.md).
