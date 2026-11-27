@@ -1,1 +1,1 @@
-"""API v1 initialization."""
+"""Version 1 routes."""

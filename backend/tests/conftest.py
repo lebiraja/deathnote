@@ -1,63 +1,25 @@
-"""
-Test configuration and fixtures.
-"""
+from typing import Any
+
 import pytest
 from fastapi.testclient import TestClient
-import sys
-from pathlib import Path
-
-# Add app to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.main import app
-from app.core.config import get_settings
 
 
 @pytest.fixture
-def client():
-    """FastAPI test client."""
+def client() -> TestClient:
     return TestClient(app)
 
 
 @pytest.fixture
-def settings():
-    """Application settings."""
-    return get_settings()
-
-
-@pytest.fixture
-def sample_prediction_input():
-    """Sample valid prediction input."""
+def profile() -> dict[str, Any]:
     return {
-        "age": 45,
-        "gender": "Male",
-        "bmi": 24.5,
-        "cholesterol": 180.0,
-        "blood_pressure": "Normal",
-        "diabetes": False,
-        "hypertension": False,
-        "heart_disease": False,
-        "asthma": False,
-        "smoking_status": "Never",
-        "physical_activity": "High",
-        "diet": "Good"
+        "age": 30, "sex": "male", "height_cm": 172, "weight_kg": 65,
+        "bedtime": "23:00", "wake_time": "06:30", "smoking": "never", "chews_tobacco": False,
+        "alcohol": "never", "moderate_minutes": 200, "vigorous_minutes": 0, "diet": "good",
+        "diabetes": False, "hypertension": False, "heart_disease": False, "asthma": False,
     }
 
 
-@pytest.fixture
-def sample_high_risk_input():
-    """Sample high-risk prediction input."""
-    return {
-        "age": 65,
-        "gender": "Male",
-        "bmi": 32.0,
-        "cholesterol": 250.0,
-        "blood_pressure": "High",
-        "diabetes": True,
-        "hypertension": True,
-        "heart_disease": True,
-        "asthma": False,
-        "smoking_status": "Current",
-        "physical_activity": "Low",
-        "diet": "Poor"
-    }
+HABITS = ("weight_kg", "bedtime", "wake_time", "smoking", "chews_tobacco", "alcohol",
+          "moderate_minutes", "vigorous_minutes", "diet")

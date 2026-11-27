@@ -1,1 +1,1 @@
-"""API initialization."""
+"""HTTP layer."""
